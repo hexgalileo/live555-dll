@@ -3,7 +3,7 @@
 # live555-dll
 Windows DLL build of Live555 based on the 2019-11-22 release from live555.com/liveMedia to meet LGPL requirements
 
-# Instructions
+# Build Instructions
 To build this DLL, perform the following steps:
 1. Pull the code.
 2. Open a Developer Command Prompt and run: cmake -G "Visual Studio 15 2017 Win64"
