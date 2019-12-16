@@ -5,5 +5,5 @@ FILE(GLOB LIVE555_SOURCE groupsock/*.c* liveMedia/*.c* UsageEnvironment/*.c* Bas
 SET(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 add_library (live555 SHARED ${LIVE555_SOURCE})	
 target_include_directories(live555 PUBLIC groupsock/include liveMedia/include UsageEnvironment/include BasicUsageEnvironment/include)
-target_link_libraries (${PROJECT_NAME} ws2_32 live555)
+target_link_libraries (${PROJECT_NAME} ws2_32)
 
