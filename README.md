@@ -6,7 +6,7 @@ Windows DLL build of Live555 based on the 2019-11-22 release from live555.com/li
 # Build Instructions
 To build this DLL, perform the following steps:
 1. Pull the code.
-2. Open a Developer Command Prompt and run: cmake -G "Visual Studio 15 2017 Win64"
+2. Open a Developer Command Prompt and run: cmake -G "Visual Studio 15 2017 Win64 ."
 3. Open the live555.sln file with Visual Studio 2017 and build live555
 
 NOTE: The C++ compiler must be enabled in Visual Studio.
