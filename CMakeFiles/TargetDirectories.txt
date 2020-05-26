@@ -1,0 +1,3 @@
+C:/Repos/live555-dll/CMakeFiles/live555.dir
+C:/Repos/live555-dll/CMakeFiles/ALL_BUILD.dir
+C:/Repos/live555-dll/CMakeFiles/ZERO_CHECK.dir
