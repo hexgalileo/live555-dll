@@ -14,7 +14,7 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 **********/
 // "liveMedia"
-// Copyright (c) 1996-2019 Live Networks, Inc.  All rights reserved.
+// Copyright (c) 1996-2020 Live Networks, Inc.  All rights reserved.
 // RTP Sources
 // C++ header
 
@@ -26,6 +26,9 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 #endif
 #ifndef _RTP_INTERFACE_HH
 #include "RTPInterface.hh"
+#endif
+#ifndef _SRTP_CRYPTOGRAPHIC_CONTEXT_HH
+#include "SRTPCryptographicContext.hh"
 #endif
 
 class RTPReceptionStatsDB; // forward
@@ -44,6 +47,8 @@ public:
   Groupsock* RTPgs() const { return fRTPInterface.gs(); }
 
   virtual void setPacketReorderingThresholdTime(unsigned uSeconds) = 0;
+
+  void setCrypto(SRTPCryptographicContext* crypto) { fCrypto = crypto; }
 
   // used by RTCP:
   u_int32_t SSRC() const { return fSSRC; }
@@ -77,6 +82,13 @@ public:
 					   handlerClientData);
   }
 
+  // This is used to set a callback to retrieve the RTP Header Extension data
+  typedef void(*RtpExtHdrCallback_t)(u_int16_t profile, u_int16_t len, u_int8_t* pHdrData, void* pPriv);
+  void setRtpExtHdrCallback(RtpExtHdrCallback_t callback, void* pPriv)
+  {
+	  fRtpExtHdrCallback = callback; fRtpExtHdrCallbackPrivData = pPriv;
+  }
+
   // Note that RTP receivers will usually not need to call either of the following two functions, because
   // RTP sequence numbers and timestamps are usually not useful to receivers.
   // (Our implementation of RTP reception already does all needed handling of RTP sequence numbers and timestamps.)
@@ -98,6 +110,10 @@ protected:
   Boolean fCurPacketHasBeenSynchronizedUsingRTCP;
   u_int32_t fLastReceivedSSRC;
   class RTCPInstance* fRTCPInstanceForMultiplexedRTCPPackets;
+  SRTPCryptographicContext* fCrypto;
+  RtpExtHdrCallback_t fRtpExtHdrCallback;
+  void*               fRtpExtHdrCallbackPrivData;
+
 
 private:
   // redefined virtual functions:

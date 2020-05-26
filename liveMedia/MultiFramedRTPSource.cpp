@@ -14,7 +14,7 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 **********/
 // "liveMedia"
-// Copyright (c) 1996-2019 Live Networks, Inc.  All rights reserved.
+// Copyright (c) 1996-2020 Live Networks, Inc.  All rights reserved.
 // RTP source for a common kind of payload format: Those that pack multiple,
 // complete codec frames (as many as possible) into each RTP packet.
 // Implementation
@@ -258,6 +258,13 @@ void MultiFramedRTPSource::networkReadHandler1() {
     if ((our_random()%10) == 0) break; // simulate 10% packet loss
 #endif
 
+    if (fCrypto != NULL) { // The packet is SRTP; authenticate/decrypt it first
+      unsigned newPacketSize;
+      if (!fCrypto->processIncomingSRTPPacket(bPacket->data(), bPacket->dataSize(), newPacketSize)) break;
+      if (newPacketSize > bPacket->dataSize()) break; // sanity check; shouldn't happen
+      bPacket->removePadding(bPacket->dataSize() - newPacketSize); // treat MKI+auth as padding
+    }
+
     // Check for the 12-byte RTP header:
     if (bPacket->dataSize() < 12) break;
     unsigned rtpHdr = ntohl(*(u_int32_t*)(bPacket->data())); ADVANCE(4);
@@ -292,6 +299,11 @@ void MultiFramedRTPSource::networkReadHandler1() {
       unsigned extHdr = ntohl(*(u_int32_t*)(bPacket->data())); ADVANCE(4);
       unsigned remExtSize = 4*(extHdr&0xFFFF);
       if (bPacket->dataSize() < remExtSize) break;
+	  if (fRtpExtHdrCallback)
+	  {
+		  fRtpExtHdrCallback(extHdr >> 16, remExtSize, bPacket->data(), fRtpExtHdrCallbackPrivData);
+	  }
+
       ADVANCE(remExtSize);
     }
 

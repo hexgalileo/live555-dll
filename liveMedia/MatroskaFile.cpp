@@ -14,7 +14,7 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 **********/
 // "liveMedia"
-// Copyright (c) 1996-2019 Live Networks, Inc.  All rights reserved.
+// Copyright (c) 1996-2020 Live Networks, Inc.  All rights reserved.
 // A class that encapsulates a Matroska file.
 // Implementation
 
@@ -686,8 +686,8 @@ FileSink* MatroskaFile::createFileSinkForTrackNumber(unsigned trackNumber, char 
       delete[] sps; delete[] pps;
 
       char* sPropParameterSetsStr
-	= new char[sps_base64 == NULL ? 0 : strlen(sps_base64) +
-		   pps_base64 == NULL ? 0 : strlen(pps_base64) +
+	= new char[(sps_base64 == NULL ? 0 : strlen(sps_base64)) +
+		   (pps_base64 == NULL ? 0 : strlen(pps_base64)) +
 		   10 /*more than enough space*/];
       sprintf(sPropParameterSetsStr, "%s,%s", sps_base64, pps_base64);
       delete[] sps_base64; delete[] pps_base64;
