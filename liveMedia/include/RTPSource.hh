@@ -14,7 +14,7 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 **********/
 // "liveMedia"
-// Copyright (c) 1996-2020 Live Networks, Inc.  All rights reserved.
+// Copyright (c) 1996-2021 Live Networks, Inc.  All rights reserved.
 // RTP Sources
 // C++ header
 
@@ -86,7 +86,7 @@ public:
   typedef void(*RtpExtHdrCallback_t)(u_int16_t profile, u_int16_t len, u_int8_t* pHdrData, void* pPriv);
   void setRtpExtHdrCallback(RtpExtHdrCallback_t callback, void* pPriv)
   {
-	  fRtpExtHdrCallback = callback; fRtpExtHdrCallbackPrivData = pPriv;
+      fRtpExtHdrCallback = callback; fRtpExtHdrCallbackPrivData = pPriv;
   }
 
   // Note that RTP receivers will usually not need to call either of the following two functions, because
@@ -112,8 +112,7 @@ protected:
   class RTCPInstance* fRTCPInstanceForMultiplexedRTCPPackets;
   SRTPCryptographicContext* fCrypto;
   RtpExtHdrCallback_t fRtpExtHdrCallback;
-  void*               fRtpExtHdrCallbackPrivData;
-
+  void* fRtpExtHdrCallbackPrivData;
 
 private:
   // redefined virtual functions:

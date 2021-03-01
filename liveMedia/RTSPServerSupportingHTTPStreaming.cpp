@@ -38,7 +38,7 @@ RTSPServerSupportingHTTPStreaming::createNew(UsageEnvironment& env, Port rtspPor
 RTSPServerSupportingHTTPStreaming
 ::RTSPServerSupportingHTTPStreaming(UsageEnvironment& env, int ourSocket, Port rtspPort,
 				    UserAuthenticationDatabase* authDatabase, unsigned reclamationTestSeconds)
-  : RTSPServer(env, ourSocket, rtspPort, authDatabase, reclamationTestSeconds) {
+  : RTSPServer(env, ourSocket, rtspPort, authDatabase, reclamationTestSeconds, reclamationTestSeconds) {
 }
 
 RTSPServerSupportingHTTPStreaming::~RTSPServerSupportingHTTPStreaming() {
