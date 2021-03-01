@@ -1,0 +1,23 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/live555.dir
+/CMakeFiles
+/ALL_BUILD.vcxproj
+/ZERO_CHECK.vcxproj.filters
+/ZERO_CHECK.vcxproj
+/live555.vcxproj.filters
+/live555.vcxproj
+/live555.sln
+/cmake_install.cmake
+/CMakeCache.txt
+/ALL_BUILD.vcxproj.filters
+/RelWithDebInfo
+/x64
+/Release/live555.lib
+/Release/live555.exp
+/Release/live555.dll
+/live555.vcxproj.user
+/ALL_BUILD.vcxproj.user
