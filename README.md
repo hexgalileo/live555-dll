@@ -1,7 +1,7 @@
 ![Hexagon logo](/Hexagon_RGB.jpg)
 
 # live555-dll
-Windows DLL build of Live555 based on the 2021-02-11 release from live555.com/liveMedia to meet LGPL requirements
+Windows DLL build of Live555 based on the 2021-08-24 release from live555.com/liveMedia to meet LGPL requirements
 
 # Build Instructions
 To build this DLL, perform the following steps:
