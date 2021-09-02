@@ -4,7 +4,7 @@
 
 /.vs
 /live555.dir
-/CMakeFiles
+/CMakeFiles/
 /ALL_BUILD.vcxproj
 /ZERO_CHECK.vcxproj.filters
 /ZERO_CHECK.vcxproj
@@ -21,3 +21,5 @@
 /Release/live555.dll
 /live555.vcxproj.user
 /ALL_BUILD.vcxproj.user
+/out/build
+

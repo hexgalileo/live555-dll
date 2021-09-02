@@ -89,6 +89,7 @@ public:
       fRtpExtHdrCallback = callback; fRtpExtHdrCallbackPrivData = pPriv;
   }
 
+
   // Note that RTP receivers will usually not need to call either of the following two functions, because
   // RTP sequence numbers and timestamps are usually not useful to receivers.
   // (Our implementation of RTP reception already does all needed handling of RTP sequence numbers and timestamps.)
@@ -113,6 +114,7 @@ protected:
   SRTPCryptographicContext* fCrypto;
   RtpExtHdrCallback_t fRtpExtHdrCallback;
   void* fRtpExtHdrCallbackPrivData;
+
 
 private:
   // redefined virtual functions:

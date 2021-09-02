@@ -408,16 +408,6 @@ int readSocket(UsageEnvironment& env,
 	|| err == EAGAIN
 #endif
 	|| err == 113 /*EHOSTUNREACH (Linux)*/) { // Why does Linux return this for datagram sock?
-      switch (fromAddress.ss_family) {
-	case AF_INET: {
-	  ((sockaddr_in&)fromAddress).sin_addr.s_addr = 0;
-	  break;
-	}
-        case AF_INET6: {
-	  for (unsigned i = 0; i < 16; ++i) ((sockaddr_in6&)fromAddress).sin6_addr.s6_addr[i] = 0;
-	  break;
-	}
-      }
       return 0;
     }
     //##### END HACK
@@ -907,7 +897,7 @@ void getOurIPAddresses(UsageEnvironment& env) {
       if ((p->ifa_flags&IFF_UP) == 0 || (p->ifa_flags&IFF_LOOPBACK) != 0) continue;
 
       // Also ignore the interface if the address is considered 'bad' for us:
-      if (isBadAddressForUs(*p->ifa_addr)) continue;
+      if (p->ifa_addr == NULL || isBadAddressForUs(*p->ifa_addr)) continue;
       
       // We take the first IPv4 and first IPv6 addresses:
       if (p->ifa_addr->sa_family == AF_INET && addressIsNull(foundIPv4Address)) {
