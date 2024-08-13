@@ -14,7 +14,7 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 **********/
 // "liveMedia"
-// Copyright (c) 1996-2022 Live Networks, Inc.  All rights reserved.
+// Copyright (c) 1996-2024 Live Networks, Inc.  All rights reserved.
 // RTP Sources
 // C++ header
 
@@ -82,7 +82,6 @@ public:
 					   handlerClientData);
   }
 
-  // This is used to set a callback to retrieve the RTP Header Extension data
   typedef void(*RtpExtHdrCallback_t)(u_int16_t profile, u_int16_t len, u_int8_t* pHdrData, void* pPriv);
   void setRtpExtHdrCallback(RtpExtHdrCallback_t callback, void* pPriv)
   {
@@ -114,6 +113,7 @@ protected:
   SRTPCryptographicContext* fCrypto;
   RtpExtHdrCallback_t fRtpExtHdrCallback;
   void* fRtpExtHdrCallbackPrivData;
+
 
 private:
   // redefined virtual functions:

@@ -14,7 +14,7 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 **********/
 // "liveMedia"
-// Copyright (c) 1996-2022 Live Networks, Inc.  All rights reserved.
+// Copyright (c) 1996-2024 Live Networks, Inc.  All rights reserved.
 // RTP source for a common kind of payload format: Those that pack multiple,
 // complete codec frames (as many as possible) into each RTP packet.
 // Implementation
@@ -302,7 +302,14 @@ void MultiFramedRTPSource::networkReadHandler1() {
       // added for video streamer - ADE
       if (fRtpExtHdrCallback)
       {
-          fRtpExtHdrCallback(extHdr >> 16, remExtSize, bPacket->data(), fRtpExtHdrCallbackPrivData);
+          try
+          {
+              fRtpExtHdrCallback(extHdr >> 16, remExtSize, bPacket->data(), fRtpExtHdrCallbackPrivData);
+          }
+          catch (...)
+          {
+              fRtpExtHdrCallback = NULL;
+          }
       }
 
       ADVANCE(remExtSize);
@@ -310,11 +317,11 @@ void MultiFramedRTPSource::networkReadHandler1() {
 
     // Discard any padding bytes:
     if (rtpHdr&0x20000000) {
-        if (bPacket->dataSize() == 0) break;
-        unsigned numPaddingBytes
-            = (unsigned)(bPacket->data())[bPacket->dataSize() - 1];
-        if (bPacket->dataSize() < numPaddingBytes) break;
-        bPacket->removePadding(numPaddingBytes);
+      if (bPacket->dataSize() == 0) break;
+      unsigned numPaddingBytes
+	= (unsigned)(bPacket->data())[bPacket->dataSize()-1];
+      if (bPacket->dataSize() < numPaddingBytes) break;
+      bPacket->removePadding(numPaddingBytes);
     }
 
     // The rest of the packet is the usable data.  Record and save it:
