@@ -23,3 +23,7 @@
 /ALL_BUILD.vcxproj.user
 /out/build
 
+/CMakeFiles/CMakeOutput.log
+/CMakeFiles/generate.stamp.depend
+/CMakeFiles/generate.stamp.list
+/CMakeFiles/TargetDirectories.txt

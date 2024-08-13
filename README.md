@@ -13,4 +13,4 @@ NOTE: The C++ compiler must be enabled in Visual Studio.
 
 For the latest version of Live555 Streaming Media and corresponding license information, go to [LIVE555 Streaming Media](http://www.live555.com/liveMedia/).
 
-Hexagon Safety & Infrastructure is a division of Hexagon.
+Hexagon Safety, Infrastructure & Geospatial is a division of Hexagon.

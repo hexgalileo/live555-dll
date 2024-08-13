@@ -14,7 +14,7 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 **********/
 // "liveMedia"
-// Copyright (c) 1996-2022 Live Networks, Inc.  All rights reserved.
+// Copyright (c) 1996-2024 Live Networks, Inc.  All rights reserved.
 // A RTSP server
 // Implementation
 
@@ -493,6 +493,7 @@ void RTSPServer::RTSPClientConnection::handleCmd_notSupported() {
 }
 
 void RTSPServer::RTSPClientConnection::handleCmd_redirect(char const* urlSuffix) {
+  char* urlPrefix = fOurRTSPServer.rtspURLPrefix(fClientInputSocket);
   snprintf((char*)fResponseBuffer, sizeof fResponseBuffer,
 	   "RTSP/1.0 301 Moved Permanently\r\n"
 	   "CSeq: %s\r\n"
@@ -500,7 +501,8 @@ void RTSPServer::RTSPClientConnection::handleCmd_redirect(char const* urlSuffix)
 	   "Location: %s%s\r\n\r\n",
 	   fCurrentCSeq,
 	   dateHeader(),
-	   fOurRTSPServer.rtspURLPrefix(fClientInputSocket), urlSuffix);
+	   urlPrefix, urlSuffix);
+  delete[] urlPrefix;
 }
 
 void RTSPServer::RTSPClientConnection::handleCmd_notFound() {
@@ -985,7 +987,7 @@ void RTSPServer::RTSPClientConnection::handleRequestBytes(int newBytesRead) {
     if (fOutputTLS->isNeeded) {
         fOutputTLS->write((char const*)fResponseBuffer, numBytesToWrite);
     } else {
-        send(fClientOutputSocket, (char const*)fResponseBuffer, numBytesToWrite, 0);
+        send(fClientOutputSocket, (char const*)fResponseBuffer, numBytesToWrite, MSG_NOSIGNAL);
    }
     
     if (playAfterSetup) {
