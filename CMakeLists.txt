@@ -1,4 +1,7 @@
 cmake_minimum_required (VERSION 3.0.0)
+if(POLICY CMP0091)
+    cmake_policy(SET CMP0091 NEW)
+endif()
 project (live555)
 
 if (DEFINED LIVE555BUILD)
@@ -23,6 +26,9 @@ endif()
 
 
 MESSAGE("LIVE555BUILD = ${LIVE555BUILD}")
+
+set (CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded")
+set (MSVC_RUNTIME_LIBRARY "MultiThreaded")
 
 #set (CMAKE_CONFIGURATION_TYPES ${LIVE555BUILD})
 set (CMAKE_POSITION_INDEPENDENT_CODE ON)
