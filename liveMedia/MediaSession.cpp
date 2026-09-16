@@ -14,7 +14,7 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 **********/
 // "liveMedia"
-// Copyright (c) 1996-2025 Live Networks, Inc.  All rights reserved.
+// Copyright (c) 1996-2026 Live Networks, Inc.  All rights reserved.
 // A data structure that represents a session that consists of
 // potentially multiple (audio and/or video) sub-sessions
 // Implementation
@@ -390,10 +390,10 @@ static Boolean parseRangeAttribute(char const* sdpLine, char*& absStartTime, cha
   char* ae = new char[len];
   int sscanfResult = sscanf(sdpLine, "a=range: clock = %[^-\r\n]-%[^\r\n]", as, ae);
   if (sscanfResult == 2) {
-    absStartTime = as;
-    absEndTime = ae;
+    delete[] absStartTime; absStartTime = as;
+    delete[] absEndTime; absEndTime = ae;
   } else if (sscanfResult == 1) {
-    absStartTime = as;
+    delete[] absStartTime; absStartTime = as;
     delete[] ae;
   } else {
     delete[] as; delete[] ae;
